@@ -159,20 +159,20 @@ function loadCamera() {
 
 function animate() {
 
-if(wavesPlaying){
+    if(wavesPlaying){
 
-	if(splashClock != undefined){
-		var t = splashClock.getElapsedTime();
-		
-		waves(waveTime * 0.013);
-		
-		renderer.clear();
-		renderer.render( splashScene, camera );
+        if(splashClock != undefined){
+            var t = splashClock.getElapsedTime();
 
-		
-			waveTime++;
-			window.requestAnimationFrame(animate, renderer.domElement);
-		}
+            waves(waveTime * 0.013);
+
+            renderer.clear();
+            renderer.render( splashScene, camera );
+
+
+                waveTime++;
+                window.requestAnimationFrame(animate, renderer.domElement);
+            }
 	}
 	
 }
@@ -208,7 +208,7 @@ function waveA (x, y, t) {
 }
 
 function waveB (x, y, t) {
-	return Math.sin( ( x / 2 ) * waveOffsetB + ( t / waveSpeedB ) ) * Math.cos( ( y / 2 ) * waveOffsetB + ( t / waveSpeedB ) ) * waveHeightB;
+	return Math.sin( ( x /2000 ) * waveOffsetB + ( t / waveSpeedB ) ) * Math.cos( ( y /2000 ) * waveOffsetB + ( t / waveSpeedB ) ) * waveHeightB;
 }
 
 //generic mpping of a value from one range to another
