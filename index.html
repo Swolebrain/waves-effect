@@ -2,22 +2,26 @@
 <html>
     <head>
         <title>L3arn to code.</title>
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <style>
             *{
                 font-family: 'Open Sans', sans-serif;
-                color:white;
             }
             .main-content{
                 position:absolute;
                 height:100%;
+                width:100%;
             }
             .inner-content-box{
+                color:white;
                 position:relative;
                 top:50%;
                 left:50%;
-                transform: translate(-25%, -60%);
+                transform: translate(-50%, -60%);
+                -webkit-transform: translate(-50%, -60%);
+                -ms-transform: translate(-50%, -60%);
             }
             .shadowed-text{
                 text-align:center;
@@ -31,26 +35,44 @@
             .btn:hover{
                 background:rgba(255,255,255,0.7);
             }
+            .modal-why{
+                display:none;
+                border: 2px solid white;
+                color:black;
+                text-align:center;
+                background:rgba(255,255,255,0.7);
+                margin-top:20px;
+            }
+            p{
+                padding:0.8em;
+                margin:0;
+            }
         </style>
     </head>
     <body onload="start();">
-        <div class="main-content">
+        <div class="main-content"> <!-- this is abs position -->
             <div class="inner-content-box">
-                <img  src="img/become-a-developer.png" >
+                <img class="center-block img-responsive" src="img/become-a-developer.png" >
                 <p class="shadowed-text">
                     Learn to Code. Change your life. Become a full stack Developer. Come to FVI.
                     
                 </p>
-                <div class="col-xs-6 col-xs-push-3 col-md-2 col-md-push-3 btn">
+                <div id="why" class="col-xs-6 col-md-2 col-md-push-3 btn">
                     Why FVI
                 </div>
                 <div class="col-xs-6 col-md-2">
                 </div>
-                <div class="col-xs-6 col-xs-push-3 col-md-2 col-md-push-3 btn">
+                <div id="contact" class="col-xs-6 col-md-2 col-md-push-3 btn">
                     Contact Us
                 </div>
-            </div>
-            <div>
+                
+                <div class="col-md-push-1 col-md-10 modal-why">
+                    <p><strong>Project-Based Learning: </strong> You walk out with a portfolio
+                    of work you can show to employers.</p>
+                    <p><strong>Financial Aid Elegible:</strong> We are an accredited institution
+                    and our programs are elegible for many grants and federal loans.</p>
+                    <p><strong>Competitive price point, only 9-month duration.</strong></p>
+                </div>
             </div>
         </div>
         
@@ -95,5 +117,10 @@
 				
 			}
 		</script>
+        <script ir="btn-handlers">
+            $("#why").on("click",function(){
+                $(".modal-why").toggle("explode");
+            });
+        </script>
     </body>
 </html>
