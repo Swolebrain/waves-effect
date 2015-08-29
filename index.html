@@ -71,11 +71,23 @@
                 background-color:crimson;
                 color:white;
                 font-size:1.2em;
+                transition: all 0.6s;
+            }
+            #btn_submit:hover{
+                transform:scale(1.05,1.05);
+                -webkit-box-shadow: 0px 4px 5px 1px rgba(55, 55, 55, 1);
+                -moz-box-shadow:    0px 4px 5px 1px rgba(55, 55, 55, 1);
+                box-shadow:         0px 4px 5px 1px rgba(55, 55, 55, 1);
+                cursor:pointer;
             }
             #btn_submit p{
                 position:relative;
                 top:50%;
                 transform:translateY(-50%);
+            }
+            .error{
+                border: 3px solid crimson;
+                transition: all 1s;
             }
         </style>
         <script>
@@ -128,11 +140,13 @@
             </div>
         </div>
         
-        <script src="js/libs/jquery-ui-1.9.1.custom.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <!-- <script src="js/libs/jquery-ui-1.9.1.custom.js" type="text/javascript" charset="utf-8"></script> -->
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script src="js/libs/jquery.ba-bbq.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/utils/Detector.js" type="text/javascript"></script>
         <script src="js/utils/dat.gui.js" type="text/javascript"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="js/three.min.js"></script>
         <script src="js/waves.js"></script>
         <script id="oceanSurfaceVert" type="x-shader/x-vertex">
@@ -170,17 +184,20 @@
 			}
 		</script>
         <script ir="btn-handlers">
-            var mobile = mobileAndTabletcheck();
-            /*Attaching click handlers 
-            */
-            $("#why").on("click",function(){
-                toggleOne($("#modal-why" ), $("#modal-contact"));
-            });
-            $("#contact").on("click",function(){
-                toggleOne($("#modal-contact"), $("#modal-why" ));
-            });
-            $("#btn_submit").click(function(){
-                submitForm();
+            $(function(){
+                window.mobile = mobileAndTabletcheck();
+                /*Attaching click handlers 
+                */
+                $("#why").on("click",function(){
+                    toggleOne($("#modal-why" ), $("#modal-contact"));
+                });
+                $("#contact").on("click",function(){
+                    toggleOne($("#modal-contact"), $("#modal-why" ));
+                });
+                $("#btn_submit").click(function(){
+                    submitForm();
+                    
+                });
             });
             
             /*
@@ -191,7 +208,7 @@
                     ele2.toggle();
                     
                 }
-                ele1.toggle("explode", function(){
+                ele1.toggle("blind", function(){
                     if ( (ele1.css("display") != "none" || ele2.css("display") != "none") && !mobile){
                         $(".inner-content-box").animate({
                             top: "30%"
@@ -206,7 +223,7 @@
                 
             }
             
-            function submitForm(e) {
+            function submitForm() {
                 var name = $("#full_name").val();
                 var arr = name.split(" ");
                 var fname = arr[0]; $("#first_name").val(fname);
@@ -216,6 +233,7 @@
                 var velocifyQueryString = 'FirstName=' + fname + '&LastName=' + lname + '&Email=' + email +
                 "&ProgramName=Web+and+Application+Development+Engineer&PhoneNumber=";
 
+                //console.log("velocify string: "+velocifyQueryString); 
                 
                 if (isValidEmail(email) && (phone.length > 1) && (name.length > 1) && isValidPhone(phone)) {
 
@@ -225,14 +243,15 @@
                     ynotQueryString += "&city=Miami&grad_year="+new Date().getFullYear();
                     ynotQueryString += "&lead_source_id=5&location_id=1169&state_id=9";
                     ynotQueryString += "&zipcode=00000&level_of_education_id=590";
-
+                    
+                    //console.log("submitting to ynot: "+ynotQueryString);
+                    
                     $.ajax({
                         type: "POST",
                         url: "http://api.ynotlms.com/leads.json",
                         data: ynotQueryString,
                         success: function (data, textStatus, jqXHR) {
-                            $('.success').fadeIn(1000);
-                            $('.error').fadeOut(500);
+                            
                             console.log(data);
                             document.contactform.submit();
                         },
@@ -246,18 +265,15 @@
                 }
                 else {
                     if (!isValidEmail(email)) {
-                        $(".error").html('<span class="colored-text icon_error-circle_alt"></span> Please enter a valid email address.');
+                        showError($("#email"));
                     }
-                    else if (!isValidPhone(phone)){
-                        console.log("validating number: "+phone);
-                        $(".error").html('<span class="colored-text icon_error-circle_alt"></span> Please enter a valid phone number.');
+                    if (!isValidPhone(phone)){
+                        showError($("#phone"));
                     }
                     if (name.length < 2) {
-                        $(".error").html('<span class="colored-text icon_error-circle_alt"></span> All fields must be completed.');
+                        showError($("#full_name"));
                     }
-                    $('.error').fadeIn(1000);
-                    $('.success').fadeOut(500);
-                    return false;
+                   
                 }
                 function isValidPhone(phone) {
                     var pattern = new RegExp(/^\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}/i);
@@ -266,6 +282,29 @@
                 function isValidEmail(emailAddress) {
                     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
                     return pattern.test(emailAddress);
+                }
+                
+                function showError(elem){
+                    elem.focus();
+                    var origBorder = "2px inset";
+                    console.log(origBorder);
+                    elem.css({border: "0 solid crimson"}).animate({
+                        borderWidth: 4
+                    }, 300, function(){
+                            elem.animate({
+                                borderWidth: 0
+                            },1500, "easeOutExpo", function(){
+                                elem.css({border: origBorder});
+                                console.log(origBorder);
+                            });
+                        });
+                }
+                
+                function showLoading(elem){
+                    
+                }
+                function showSuccess(elem){
+                    
                 }
             }
         </script>
