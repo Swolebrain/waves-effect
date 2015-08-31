@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=0.8 user-scalable=0">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <style>
             *{
                 font-family: 'Open Sans', sans-serif;
@@ -17,7 +18,7 @@
             .inner-content-box{
                 color:white;
                 position:relative;
-                top:50%;
+                top:40%;
                 left:50%;
                 transform: translate(-50%, -60%);
                 -webkit-transform: translate(-50%, -60%);
@@ -89,6 +90,9 @@
                 border: 3px solid crimson;
                 transition: all 1s;
             }
+            i{
+                color:white;
+            }
         </style>
         <script>
             window.mobileAndTabletcheck = function() {
@@ -102,42 +106,18 @@
         <div class="main-content"> <!-- this is abs position -->
             <div class="inner-content-box">
                 <img class="center-block img-responsive" src="img/become-a-developer.png" >
-                <p class="shadowed-text">
-                    Learn to Code. Change your life. Become a full stack Developer. Come to FVI.
-                    
-                </p>
-                <div id="why" class="col-xs-6 col-md-2 col-md-push-3 btn">
-                    Why FVI
-                </div>
-                <div class="col-xs-6 col-md-2">
-                </div>
-                <div id="contact" class="col-xs-6 col-md-2 col-md-push-3 btn">
-                    Contact Us
-                </div>
-                
-                <div class="col-md-push-1 col-md-10 modal-why" id="modal-why">
-                    <p><strong>Project-Based Learning: </strong> You walk out with a portfolio
-                    of work you can show to employers.</p>
-                    <p><strong>Financial Aid Elegible:</strong> We are an accredited institution
-                    and our programs are elegible for many grants and federal loans.</p>
-                    <p><strong>Project Based Learning:</strong> while other schools bore you with
-                    long lectures, our focus is on self-directed, hands-on learning under expert guidance.</p>
-                    <p><strong>Competitive price point, only 9-month duration.</strong></p>
-                </div>
-                <div class="col-md-push-1 col-md-10 container modal-why" id="modal-contact">
-                    <div class="col-xs-10 col-xs-push-1">
-                        <form name="frm" class="myform" method="post" onsubmit="event.preventDefault();" action="https://secure.velocify.com/Import.aspx?Provider=FVIFacebookAds&Client=30010&CampaignId=1059&Url=http://explore.fvi.edu/lp3d/thanks.html">
-                            <div class="col-xs-12 col-md-6"><p class="lbl">Your full name:</p></div>
-                            <div class="col-xs-12 col-md-6"><input type="text" id="full_name" name="full_name"></div>
-                            <div class="col-xs-12 col-md-6"><p class="lbl">Your Phone Number:</p></div>
-                            <div class="col-xs-12 col-md-6"><input type="text" id="phone" name="phone"></div>
-                            <div class="col-xs-12 col-md-6"><p class="lbl">Your email:</p></div>
-                            <div class="col-xs-12 col-md-6"><input type="text" id="email" name="email"></div>
-                            <input type="hidden" name="first_name" id="first_name">
-                            <input type="hidden" name="last_name" id="last_name">
-                            <input type="hidden" name="program_id" value="Web and Application Dev">f
-                            <div class="col-xs-10 col-xs-push-1 col-md-6-col-md-push-3" id="btn_submit"><p>Start Your Journey</p></div>
-                        </form>
+                <div class="col-xs-10 col-xs-push-1">
+                    <p class="shadowed-text">
+                        Thanks for reaching out! We will be in touch with you shortly. 
+                    </p>
+                    <p class="shadowed-text">
+                        In the meantime, feel free to give us a call at 305-570-4471 and follow us on 
+                        social media:
+                    </p>
+                    <div class="row">
+                        <div class="col-xs-4 col-md-2 col-md-push-3 text-center"><a href="http://www.facebook.com/FVITech"><i class="fa fa-facebook fa-4x"></i></a></div>
+                        <div class="col-xs-4 col-md-2 col-md-push-3 text-center"><a href="http://www.twitter.com/FVITech"><i class="fa fa-twitter fa-4x" ></i></a></div>
+                        <div class="col-xs-4 col-md-2 col-md-push-3 text-center"><a href="https://www.youtube.com/channel/UCPbWkXshrZghR5W7kF7s0mg"><i class="fa fa-youtube fa-4x" ></i></a></div>
                     </div>
                 </div>
             </div>
