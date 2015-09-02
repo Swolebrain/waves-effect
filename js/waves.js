@@ -61,7 +61,7 @@ function start() {
 
 
 	oceanUniforms = {
-		u_color : { type: "c", value: new THREE.Color( 0x383a49 ) }
+		u_color : { type: "c", value: new THREE.Color( 0x383a49 ) } //0x383a49
 	};
 		
 	oceanMaterial = new THREE.ShaderMaterial( {
@@ -92,7 +92,7 @@ function start() {
 	background = new THREE.Color();
 	background.r = 0.05;
 	background.g = 0.05;
-	background.b = 0.05;
+	background.b = 0.25;
 	renderer.setClearColor(background, 1.0);
 	renderer.clear();
 
