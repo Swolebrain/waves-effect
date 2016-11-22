@@ -6,6 +6,11 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <style>
+            body, html{
+              padding: 0;
+              margin: 0;
+              overflow-x: hidden;
+            }
             *{
                 font-family: 'Open Sans', sans-serif;
             }
@@ -135,7 +140,7 @@
                 </div>
                 <div class="col-md-push-1 col-md-10 container modal-why" id="modal-contact">
                     <div class="col-xs-10 col-xs-push-1">
-                        <form name="frm" class="myform" method="post" onsubmit="event.preventDefault();" action="https://secure.velocify.com/Import.aspx?Provider=FVIFacebookAds&Client=30010&CampaignId=1059&Url=http://explore.fvi.edu/lp3d/thanks.html">
+                        <form name="frm" class="myform" method="post" onsubmit="submitForm();" action="http://fvi-grad.com:4004/guide">
                             <div class="col-xs-12 col-md-6"><p class="lbl">Your full name:</p></div>
                             <div class="col-xs-12 col-md-6"><input type="text" id="full_name" name="full_name"></div>
                             <div class="col-xs-12 col-md-6"><p class="lbl">Your Phone Number:</p></div>
@@ -144,7 +149,7 @@
                             <div class="col-xs-12 col-md-6"><input type="text" id="email" name="email"></div>
                             <input type="hidden" name="first_name" id="first_name">
                             <input type="hidden" name="last_name" id="last_name">
-                            <input type="hidden" name="program_id" value="Web and Application Dev">f
+                            <input type="hidden" name="dest_email" value="thecodingteacher@gmail.com">f
                             <div class="col-xs-10 col-xs-push-1 col-md-6-col-md-push-3" id="btn_submit"><p>Start Your Journey</p></div>
                         </form>
                     </div>
@@ -228,7 +233,8 @@
 
                 }
                 ele1.toggle("blind", function(){
-                    if ( (ele1.css("display") != "none" || ele2.css("display") != "none") && !mobile){
+                    if ( (ele1.css("display") != "none"
+                    || ele2.css("display") != "none") && !mobile){
                         $(".inner-content-box").animate({
                             top: "20%"
                         },300);
@@ -249,26 +255,11 @@
                 var lname = arr[arr.length-1]; $("#last_name").val(lname);
                 var email = $("#email").val();
                 var phone = $("#phone").val();
-                var formData: {full_name: name, email: email, phone:phone,
-                                dest_email: 'thecodingteacher@gmail.com'};
 
                 if (isValidEmail(email) && (phone.length > 1) && (name.length > 1) && isValidPhone(phone)) {
                     $("#modal-contact > div").css("opacity", 0.3);
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://fvi-grad.com:4004/guide",
-                        data: formData,
-                        success: function (data, textStatus, jqXHR) {
-                          alert("Form submitted successfully!")
-                        },
-                        error: function(jqXHR, status, err ){
-                            console.log(status);
-                            console.log(err);
-                        }
-                    });
-
+                    console.log("Sending email...")
+                    document.forms[0].submit();
                 }
                 else {
                     if (!isValidEmail(email)) {
@@ -280,6 +271,7 @@
                     if (name.length < 2) {
                         showError($("#full_name"));
                     }
+                    return false;
 
                 }
                 function isValidPhone(phone) {
