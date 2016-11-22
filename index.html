@@ -258,7 +258,7 @@
 
                 if (isValidEmail(email) && (phone.length > 1) && (name.length > 1) && isValidPhone(phone)) {
                     $("#modal-contact > div").css("opacity", 0.3);
-                    console.log("Sending email...")
+                    alert("You may need to click on a 'download' button, depending on your browser.");
                     document.forms[0].submit();
                 }
                 else {
