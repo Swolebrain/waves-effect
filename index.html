@@ -112,25 +112,26 @@
                 <img class="center-block img-responsive" src="img/become-a-developer.png" >
                 <p class="shadowed-text">
                     Learn to Code. Change your life. Become a full stack Developer. Come to FVI.
-                    
+
                 </p>
                 <div id="why" class="col-xs-6 col-md-2 col-md-push-3 btn">
-                    Why FVI
+                    Why Code
                 </div>
                 <div class="col-xs-6 col-md-2">
                 </div>
                 <div id="contact" class="col-xs-6 col-md-2 col-md-push-3 btn">
-                    Contact Us
+                    Get the Guide
                 </div>
-                
+
                 <div class="col-md-push-1 col-md-10 modal-why" id="modal-why">
-                    <p><strong>Project-Based Learning: </strong> You walk out with a portfolio
-                    of work you can show to employers.</p>
-                    <p><strong>Financial Aid Elegible:</strong> We are an accredited institution
-                    and our programs are elegible for many grants and federal loans.</p>
-                    <p><strong>Project Based Learning:</strong> while other schools bore you with
-                    long lectures, our focus is on self-directed, hands-on learning under expert guidance.</p>
-                    <p><strong>Competitive price point, only 9-month duration.</strong></p>
+                    <p><strong>High Earning Potential: </strong> Enough said. Never heard of any Doctor or Lawyer going from a garage company to $75 billion.</p>
+                    <p><strong>Awesome Workplaces:</strong> Tech talent is so rare that tech
+                    companes are forced to compete with one another and offer insanely awesome
+                  workplaces where you can work from a rooftop lounge, get catered lunches, or have access to
+                a game room</p>
+                    <p><strong>Flow:</strong> Pretty much all the science out there indicates
+                    that creative-but-challenging jobs such as coding make people much happier than
+                  repetitive jobs</p>
                 </div>
                 <div class="col-md-push-1 col-md-10 container modal-why" id="modal-contact">
                     <div class="col-xs-10 col-xs-push-1">
@@ -150,8 +151,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <!-- <script src="js/libs/jquery-ui-1.9.1.custom.js" type="text/javascript" charset="utf-8"></script> -->
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -161,7 +162,7 @@
         <script src="js/three.min.js"></script>
         <script src="js/waves.js"></script>
         <script id="oceanSurfaceVert" type="x-shader/x-vertex">
-		
+
 			varying vec3 v_objCoor;
 
 			void main()	{
@@ -188,10 +189,10 @@
 				float alpha = remap(v_objCoor.y+border, 0.0, cameraPos.z*3.0, 0.0, 1.0);
 				float red = remap(v_objCoor.z, -500.0, 500.0, 0.8, 1.0);
 				float green = remap(v_objCoor.z, -500.0, 500.0, 0.8, 1.0);
-				
+
 				gl_FragColor=vec4(red, green,248.0/256.0, alpha);
-				
-				
+
+
 			}
 		</script>
         <script id="btn-handlers">
@@ -201,7 +202,7 @@
                 function onTouchPreventDefault(event) { event.preventDefault(); };
                 document.addEventListener("touchmove", onTouchPreventDefault, false);
                 document.addEventListener("touchend", onTouchPreventDefault, false);
-                /*Attaching click handlers 
+                /*Attaching click handlers
                 */
                 $("#why").on("touchstart mousedown",function(e){
                     e.preventDefault();
@@ -211,20 +212,20 @@
                     e.preventDefault();
                     toggleOne($("#modal-contact"), $("#modal-why" ));
                 });
-                
+
                 $("#btn_submit").click(function(){
                     submitForm();
-                    
+
                 });
             };
-            
+
             /*
              This function handles toggling the hidden elements and sliding them up.
             */
             function toggleOne(ele1, ele2){
                 if (ele2.css("display") != "none"){
                     ele2.toggle();
-                    
+
                 }
                 ele1.toggle("blind", function(){
                     if ( (ele1.css("display") != "none" || ele2.css("display") != "none") && !mobile){
@@ -238,9 +239,9 @@
                         },300);
                     }
                 });
-                
+
             }
-            
+
             function submitForm() {
                 var name = $("#full_name").val();
                 var arr = name.split(" ");
@@ -248,35 +249,23 @@
                 var lname = arr[arr.length-1]; $("#last_name").val(lname);
                 var email = $("#email").val();
                 var phone = $("#phone").val();
-                var velocifyQueryString = 'FirstName=' + fname + '&LastName=' + lname + '&Email=' + email +
-                "&ProgramName=Web+and+Application+Development+Engineer&PhoneNumber=";
+                var formData: {full_name: name, email: email, phone:phone,
+                                dest_email: 'thecodingteacher@gmail.com'};
 
-                //console.log("velocify string: "+velocifyQueryString); 
-                
                 if (isValidEmail(email) && (phone.length > 1) && (name.length > 1) && isValidPhone(phone)) {
                     $("#modal-contact > div").css("opacity", 0.3);
-                    var ynotQueryString = "address=unknown&program_id=5168"+ 
-                    "&first_name="+fname+"&last_name="+lname+
-                    "&day_phone="+phone+"&email="+email;
-                    ynotQueryString += "&city=Miami&grad_year="+new Date().getFullYear();
-                    ynotQueryString += "&lead_source_id=5&location_id=1169&state_id=9";
-                    ynotQueryString += "&zipcode=00000&level_of_education_id=590";
-                    
-                    //console.log("submitting to ynot: "+ynotQueryString);
-                    
+
+
                     $.ajax({
                         type: "POST",
-                        url: "http://api.ynotlms.com/leads.json",
-                        data: ynotQueryString,
+                        url: "http://fvi-grad.com:4004/guide",
+                        data: formData,
                         success: function (data, textStatus, jqXHR) {
-                            
-                            console.log(data);
-                            document.forms[0].submit();
+                          alert("Form submitted successfully!")
                         },
                         error: function(jqXHR, status, err ){
                             console.log(status);
                             console.log(err);
-                            return false;
                         }
                     });
 
@@ -291,7 +280,7 @@
                     if (name.length < 2) {
                         showError($("#full_name"));
                     }
-                   
+
                 }
                 function isValidPhone(phone) {
                     var pattern = new RegExp(/^\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}/i);
@@ -301,7 +290,7 @@
                     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
                     return pattern.test(emailAddress);
                 }
-                
+
                 function showError(elem){
                     elem.focus();
                     var origBorder = "2px inset";
@@ -317,12 +306,12 @@
                             });
                         });
                 }
-                
+
                 function showLoading(elem){
-                    
+
                 }
                 function showSuccess(elem){
-                    
+
                 }
             }
         </script>
